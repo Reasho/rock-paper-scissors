@@ -67,8 +67,8 @@ function playGame(){
         round--;
         playRound(humanSelection, computerSelection);
     }
-    console.log(humanScore, "Your Score")
-    console.log(computerScore, "Computer\'s Score")
+    console.log(humanScore, "Your Score");
+    console.log(computerScore, "Computer\'s Score");
 }
 
 playGame()
