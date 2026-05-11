@@ -78,6 +78,8 @@ function playGame(){
         console.log("You win the game!");
     } else if (computerScore > humanScore){
         console.log("You lose the game!")
+    } else if (humanScore === computerScore){
+        console.log("It is a tie game!")
     }
 }
 
