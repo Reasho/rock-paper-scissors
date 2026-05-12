@@ -1,4 +1,9 @@
-
+//Create the Score variables
+let humanScore = 0, computerScore = 0;
+const rock = document.querySelector("#rock");
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissors");
+const results = document.querySelector(".results");
 
 // Get the computer's choice 
 function getComputerChoice() {
@@ -13,74 +18,38 @@ function getComputerChoice() {
     }
 }
 
-//Get the human's choice 
-function getHumanChoice() {
-    let humanChoice = prompt("Please input Rock, Paper, or Scissors")
-    const input = humanChoice.toLocaleLowerCase();
-    return input;
-}
-
-//Create the Score variables
-let humanScore = 0, computerScore = 0;
-
-//Play a single round
+//Play a round
 function playRound (humanChoice, computerChoice) {
-    
-    if(humanChoice == "rock" && computerChoice == "scissors"){
-        console.log(`You chose ${humanChoice} and the Computer chose ${computerChoice}`);
-        console.log("You Win!")
-        humanScore++
-        return
-    } else if (humanChoice == "rock" && computerChoice == "paper") {
-        console.log(`You chose ${humanChoice} and the Computer chose ${computerChoice}`);
-        console.log("You Lose!")
-        computerScore++
-        return
-    } else if(humanChoice == "paper" && computerChoice == "rock") {
-        console.log(`You chose ${humanChoice} and the Computer chose ${computerChoice}`);
-        console.log("You Win!")
-        humanScore++
-        return
-    } else if(humanChoice == "paper" && computerChoice == "scissors") {
-        console.log(`You chose ${humanChoice} and the Computer chose ${computerChoice}`);
-        console.log("You Lose!")
-        computerScore++
-        return
-    } else if(humanChoice == "scissors" && computerChoice == "rock") {
-        console.log(`You chose ${humanChoice} and the Computer chose ${computerChoice}`);
-        console.log("You Lose!")
-        computerScore++
-        return
-    } else if (humanChoice == "scissors" && computerChoice == "paper") {
-        console.log(`You chose ${humanChoice} and the Computer chose ${computerChoice}`);
-        console.log("You Win!")
-        humanScore++
-        return
+    if (humanChoice === computerChoice){
+        results.textContent = `It's a draw! You both chose ${humanChoice}`
+    } else if (
+    (humanChoice === "rock" && computerChoice === "scissors") ||
+    (humanChoice === "paper" && computerChoice === "rock") ||
+    (humanChoice === "scissors" && computerChoice === "paper")
+    ) {
+        humanScore++;
+        results.textContent = `You win! ${humanChoice} beats ${computerChoice}.`;
     } else {
-        console.log(`You chose ${humanChoice} and the Computer chose ${computerChoice}`);
-        console.log("It is a draw!")
-        return;
-    } 
-}
-
-//Play the game for five rounds
-function playGame(){
-    for (let i = 1; i < 6; i++) {
-        alert(`Round ${i} Begins`)
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
+        computerScore++;
+        results.textContent = `You lose! ${computerChoice} beats ${humanChoice}.`;
     }
-    console.log(humanScore, "Your Score");
-    console.log(computerScore, "Computer\'s Score");
 
-    if (humanScore > computerScore){
-        console.log("You win the game!");
-    } else if (computerScore > humanScore){
-        console.log("You lose the game!")
-    } else if (humanScore === computerScore){
-        console.log("It is a tie game!")
+    results.textContent += `\nScore: You ${humanScore} - Computer ${computerScore}`;
+
+    if (humanScore === 5) {
+        results.textContent = "You win the game!";
+    } else if (computerScore === 5){
+        results.textContent = "You lose the game!";
     }
-}
+};
 
-playGame()
+//Get Human Choice
+rock.addEventListener("click", () => {
+    playRound("rock", getComputerChoice());
+    });
+paper.addEventListener("click", () => {
+    playRound("paper", getComputerChoice());
+    });
+scissors.addEventListener("click", () => {
+    playRound("scissors", getComputerChoice());
+    });
